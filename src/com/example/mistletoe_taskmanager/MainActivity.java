@@ -63,7 +63,6 @@ public class MainActivity extends ListActivity {
 	private TextView canUseMemory;
 //****************************************新加功能：内存显示********************************************
 	
-	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,17 +70,9 @@ public class MainActivity extends ListActivity {
         
 //****************************************新加功能：内存显示********************************************
         canUseMemory = (TextView)findViewById(R.id.showMemory); 
-        
-//        refresh = (Button)findViewById(R.id.refresh);  
-//               //获取系统服务信息  
-//                myActivityManager =(ActivityManager)getSystemService(Activity.ACTIVITY_SERVICE);          
-//                upDateMemInfo();  
-//                refresh.setOnClickListener(new OnClickListener(){  
-//                    public void onClick(View source){  
-//                       upDateMemInfo();  
-//                    }  
-
 //****************************************新加功能：内存显示********************************************
+ 	
+        
     //==============================以下包含函数实例化==================================================
         refresh = (Button)findViewById(R.id.myButton_refresh);
         //自建刷新按钮监听函数RefreshButtonListener()
@@ -144,7 +135,7 @@ public class MainActivity extends ListActivity {
     
     //构建ListAdapter
     public ProcListAdapter buildProcListAdapter() {
-		//清空正在运行的程序                            ？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+		//清空正在运行的程序                            ？？？？？？？？？？？？？
     	if(!runningProcessList.isEmpty()){
     		runningProcessList.clear();
     	}
@@ -156,11 +147,12 @@ public class MainActivity extends ListActivity {
     	runningProcessList = activityManager.getRunningAppProcesses();
     	RunningAppProcessInfo procInfo = null;
     	for (Iterator<RunningAppProcessInfo> iterator = runningProcessList.iterator(); iterator.hasNext();) {
-    		procInfo = iterator.next();                                   //????????????????????
+    		procInfo = iterator.next();                                   //???????????
     		//将程序的信息存储到类中（自建buildProgramUtilSimpleInfo获取应用程序基本信息函数）
     		ProgramUtil programUtil = buildProgramUtilSimpleInfo(procInfo.pid, procInfo.processName);
     		//将程序信息添加到数组中
     		infoList.add(programUtil);
+    		proNum++;
     	}
     	ProcListAdapter adapter = new ProcListAdapter(infoList, this);
     	return adapter;
