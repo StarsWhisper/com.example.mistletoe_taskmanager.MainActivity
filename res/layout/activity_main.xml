@@ -14,25 +14,43 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true" >
-	<!-- 新添功能，可用内存显示********************************************************************* --> 
+<!-- 新添功能，可用内存显示********************************************************************* --> 
 
         <TextView
             android:id="@+id/myMessage_internalMemory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:text="当前系统可用内存为："
+            android:text="系统可用内存："
             android:textSize="7pt" />
         
         <TextView  
             android:id="@+id/showMemory"
             android:text="0MB"
             android:textSize="7pt"
-            android:layout_width="fill_parent"  
+            android:layout_width="wrap_content"  
             android:layout_height="wrap_content"  
-            android:layout_toRightOf="@id/myMessage_internalMemory" />  
+            android:layout_toRightOf="@id/myMessage_internalMemory" 
+            />  
 <!-- 新添功能，可用内存显示********************************************************************* -->
-
+<!-- 新加功能：进程数显示********************************************************************** -->
+        <TextView  
+            android:id="@+id/showProcessNumber"
+            android:text="0"
+            android:textSize="7pt"
+            android:layout_width="wrap_content"  
+            android:layout_height="wrap_content"  
+            android:layout_alignParentRight="true"
+             /> 
+                 <TextView
+            android:id="@+id/myMessage_processNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/showProcessNumber"
+            android:text="进程数："
+            android:textSize="7pt" />
+<!-- 新加功能：进程数显示********************************************************************** -->
         <Button
             android:id="@+id/myButton_killAll"
             android:layout_width="wrap_content"
@@ -61,6 +79,8 @@
             android:layout_alignParentRight="true" >
 
         </ListView>
+
+    
 
     </RelativeLayout>
 </RelativeLayout>

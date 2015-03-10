@@ -61,7 +61,9 @@ public class MainActivity extends ListActivity {
 	
 //****************************************新加功能：内存显示********************************************
 	private TextView canUseMemory;
-//****************************************新加功能：内存显示********************************************
+//***************************************新加功能：进程数显示***************************************
+	private TextView processNumber;
+//*************************************************************************************************
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,7 +72,9 @@ public class MainActivity extends ListActivity {
         
 //****************************************新加功能：内存显示********************************************
         canUseMemory = (TextView)findViewById(R.id.showMemory); 
-//****************************************新加功能：内存显示********************************************
+//***************************************新加功能：进程数显示***************************************
+        processNumber = (TextView)findViewById(R.id.showProcessNumber);
+//*************************************************************************************************
  	
         
     //==============================以下包含函数实例化==================================================
@@ -95,23 +99,10 @@ public class MainActivity extends ListActivity {
         updateProcessList();
 //****************************************新加功能：内存显示********************************************
         upDateMemInfo();
-//****************************************新加功能：内存显示********************************************        
+//****************************************新加功能：进程数显示********************************************  
+//        upDataProNum();
     }
-    
-    //更新列表函数的编写
-    private void updateProcessList(){
-    	progressDialog = new ProgressDialog(MainActivity.this);
-    	progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
-    	progressDialog.setTitle("提示");
-    	progressDialog.setMessage("正在刷新...");
-    	
-    //开启新线程，执行更新操作（自建RefreshThread类）
-    RefreshThread thread = new RefreshThread();
-    handler = new RefreshHandler(); 
-    thread.start();
-    //显示进度对话框
-    progressDialog.show();
-    }
+       
 
     //用于更新界面的进程
     class RefreshThread extends Thread {
@@ -128,6 +119,7 @@ public class MainActivity extends ListActivity {
     	public void handleMessage(Message msg){
     		//更新界面-ListView适配器（自建类procListAdapter）
     		getListView().setAdapter(procListAdapter);
+    		upDataProNum();
     		//取消显示进度对话框
     		progressDialog.dismiss();
     	}
@@ -152,7 +144,6 @@ public class MainActivity extends ListActivity {
     		ProgramUtil programUtil = buildProgramUtilSimpleInfo(procInfo.pid, procInfo.processName);
     		//将程序信息添加到数组中
     		infoList.add(programUtil);
-    		proNum++;
     	}
     	ProcListAdapter adapter = new ProcListAdapter(infoList, this);
     	return adapter;
@@ -204,7 +195,8 @@ public class MainActivity extends ListActivity {
 			updateProcessList();
 //****************************************新加功能：内存显示********************************************
 	        upDateMemInfo();
-//****************************************新加功能：内存显示********************************************        
+//****************************************新加功能：进程数显示******************************************** 
+//	        upDataProNum();
 		}
     }
     
@@ -223,7 +215,8 @@ public class MainActivity extends ListActivity {
 			updateProcessList();
 //****************************************新加功能：内存显示********************************************
 	        upDateMemInfo();
-//****************************************新加功能：内存显示********************************************        
+//****************************************新加功能：进程数显示********************************************
+//	        upDataProNum();
 		}
     }
     
@@ -270,7 +263,8 @@ public class MainActivity extends ListActivity {
   				updateProcessList();
 //****************************************新加功能：内存显示********************************************
   		        upDateMemInfo();
-//****************************************新加功能：内存显示********************************************        
+//****************************************新加功能：进程数显示******************************************** 
+ // 		        upDataProNum();
   				break;
   			default:
   				break;
@@ -333,6 +327,22 @@ public class MainActivity extends ListActivity {
 		
 		return complexProgramUtil;
     }
+    
+  //更新列表函数的编写
+    private void updateProcessList(){
+    	progressDialog = new ProgressDialog(MainActivity.this);
+    	progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
+    	progressDialog.setTitle("提示");
+    	progressDialog.setMessage("正在刷新...");
+    	
+    //开启新线程，执行更新操作（自建RefreshThread类）
+    RefreshThread thread = new RefreshThread();
+    handler = new RefreshHandler(); 
+    thread.start();
+    //显示进度对话框
+    progressDialog.show();
+    }
+    
 //****************************************新加功能：内存显示********************************************
     public void upDateMemInfo(){              
     	        //获得MemoryInfo对象    
@@ -345,4 +355,10 @@ public class MainActivity extends ListActivity {
     	        canUseMemory.setText(leftMemSize);  
     	    }  
 
+//***************************************新加功能：进程数显示***************************************    
+   public void upDataProNum(){	
+	    int count1 = infoList.size();
+	    processNumber.setText(Integer.toString(count1));
+   }
+   
 }
