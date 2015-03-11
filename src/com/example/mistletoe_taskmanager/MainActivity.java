@@ -70,6 +70,8 @@ public class MainActivity extends ListActivity {
 //***************************************新加功能：选择全部或反选****************************************
 	private static Button chooseAllProcess = null;
 	private static Button invertSelectionProcess = null;
+	private static checkBoxRefreshHandler checkBoxHandler = null;
+	private static CheckBoxRefreshAdapter CheckBoxRefreshAdapter = null;
 //*************************************************************************************************
 	
     @Override
@@ -389,6 +391,7 @@ public class MainActivity extends ListActivity {
 				pu = infoList.get(i);
 				pu.setSelected(true);
 				}
+			updateListViewCheckBox();
 			}
 		}
 	private class invertSelectedButtonListener implements android.view.View.OnClickListener {
@@ -403,6 +406,36 @@ public class MainActivity extends ListActivity {
 				else
 					pu.setSelected(true);
 			}
+			updateListViewCheckBox();
 		}
 	}
+//*********************************新加功能：checkBox刷新功能**************************************	
+	private class checkBoxRefreshHandler extends Handler{
+	    	public void handleMessage(Message msg){
+	    		//更新界面-ListView适配器（自建类CheckBoxRefreshAdapter）
+	    		getListView().setAdapter(CheckBoxRefreshAdapter);
+	    	}
+	    }
+	
+    class CheckBoxRefreshThread extends Thread {
+		@Override
+		public void run() {
+			CheckBoxRefreshAdapter = buildCheckBoxRefreshAdapter();
+			Message msg = handler.obtainMessage();
+			handler.sendMessage(msg);
+		}
+	}
+	   
+	private void updateListViewCheckBox(){
+	CheckBoxRefreshThread checkBoxThread = new CheckBoxRefreshThread();
+    //开启新线程，执行更新操作（自建RefreshThread类）
+    checkBoxHandler = new checkBoxRefreshHandler(); 
+    checkBoxThread.start();
+    }
+	
+	public CheckBoxRefreshAdapter buildCheckBoxRefreshAdapter() {
+		CheckBoxRefreshAdapter checkAdapter = new CheckBoxRefreshAdapter(infoList, this);
+    	return checkAdapter;
+	}
+	
 }	
