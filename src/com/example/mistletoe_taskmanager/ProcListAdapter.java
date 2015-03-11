@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,7 +55,7 @@ public class ProcListAdapter extends BaseAdapter{
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		
+				
 		final ProgramUtil pUtils = list.get(position);
 		// 设置图标
 		holder.image.setImageDrawable(pUtils.getIcon());
@@ -64,6 +65,25 @@ public class ProcListAdapter extends BaseAdapter{
 		holder.processName.setText(pUtils.getProcessName());
 		// 设内存信息
 		holder.memInfo.setText(pUtils.getMemString());
+		
+//********新加功能：选择删除****直接在View中添加tag来保存position信息********************************
+		CheckBox cb = (CheckBox)convertView.findViewById(R.id.myCheckBox);
+		cb.setTag(position); 
+		if (pUtils.getProgramName().charAt(0) == '/') //这是一个文件管理项目的代码，不允许check目录，故隐藏CheckBox  
+		{  
+			cb.setVisibility(cb.INVISIBLE);  
+		}else{  
+				cb.setVisibility(cb.VISIBLE);  
+				cb.setChecked(list.get(position).getSelected()); //从数据list中恢复checked状态  
+			    cb.setOnClickListener(new View.OnClickListener() {  
+			    public void onClick(View view) {  
+			    	CheckBox cb = (CheckBox)view;  
+			    	// 下面直接用View的tag中获取position信息，并修改对应的最初的数据list  
+			    	list.get((Integer)view.getTag()).setSelected(cb.isChecked());  
+			    	}  
+			    });  
+		} 
+//***********************************************************************************************
 		
 		return convertView;
 	}

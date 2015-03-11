@@ -8,12 +8,16 @@ public class ProgramUtil{
 	private Drawable icon;							//程序图标
 	private String programName;						//程序名称
 	private String processName;						//进程名称
-	private String memString;                       //内存占用大小
+	private String memString;                       //内存占用大小	
+//**************************************新加功能：选择删除******************************************
+	private boolean selected;  
+//**************************************新加功能：选择删除******************************************
+	
 	//初始化变量
 	public ProgramUtil() {
 		icon = null;
-		programName = "";	
-		processName = "";	
+		programName = "";
+		processName = "";
 		memString = "";
 	}
 	//获得图标
@@ -47,5 +51,13 @@ public class ProgramUtil{
 	//设置程序名称
 	public void setProcessName(String processName) {
 		this.processName = processName;
+	}
+	
+//**************************************新加功能：选择删除******************************************
+	public boolean getSelected(){
+		return selected;
+	}
+	public void setSelected(boolean selected){
+		this.selected = selected;
 	}
 }

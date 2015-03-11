@@ -23,12 +23,16 @@ import android.os.Debug.MemoryInfo;
 import android.os.Handler;
 import android.os.Message;
 import android.text.format.Formatter;  
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;  
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;  
 import android.widget.Toast;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class MainActivity extends ListActivity {
     //=================================以下是变量初始化=====================================
@@ -60,9 +64,12 @@ public class MainActivity extends ListActivity {
 	private static ProcListAdapter procListAdapter = null;
 	
 //****************************************新加功能：内存显示********************************************
-	private TextView canUseMemory;
+	private  TextView canUseMemory = null;
 //***************************************新加功能：进程数显示***************************************
-	private TextView processNumber;
+	private  TextView processNumber = null;
+//***************************************新加功能：选择删除****************************************
+//	private static Button chooseAllProcess = null;
+//	private static Button invertSelectionProcess = null;
 //*************************************************************************************************
 	
     @Override
@@ -74,16 +81,18 @@ public class MainActivity extends ListActivity {
         canUseMemory = (TextView)findViewById(R.id.showMemory); 
 //***************************************新加功能：进程数显示***************************************
         processNumber = (TextView)findViewById(R.id.showProcessNumber);
+//***************************************新加功能：选择删除***************************************        
+//        final CheckBox myCheckBox=(CheckBox)findViewById(R.id.myCheckBox);
+//        myCheckBox.setOnCheckedChangeListener(checkBox_listener);
 //*************************************************************************************************
- 	
-        
+      
     //==============================以下包含函数实例化==================================================
         refresh = (Button)findViewById(R.id.myButton_refresh);
         //自建刷新按钮监听函数RefreshButtonListener()
         refresh.setOnClickListener(new refreshButtonListener());
         killAll = (Button)findViewById(R.id.myButton_killAll);
-        //自建结束全部进程按钮监听函数KillAllButtonButtonListener()
-        killAll.setOnClickListener(new killAllButtonListener());
+//*********团队更改*******自建结束“选中”进程按钮监听函数KillSelectedButtonListener()
+        killAll.setOnClickListener(new killSelectedButtonListener());
         
         //获取包管理器，以便获取程序图标和名称
         packageManager = this.getPackageManager();
@@ -99,8 +108,6 @@ public class MainActivity extends ListActivity {
         updateProcessList();
 //****************************************新加功能：内存显示********************************************
         upDateMemInfo();
-//****************************************新加功能：进程数显示********************************************  
-//        upDataProNum();
     }
        
 
@@ -119,7 +126,9 @@ public class MainActivity extends ListActivity {
     	public void handleMessage(Message msg){
     		//更新界面-ListView适配器（自建类procListAdapter）
     		getListView().setAdapter(procListAdapter);
+//***************************************新加功能：进程数显示***************************************        		
     		upDataProNum();
+//***************************************新加功能：进程数显示***************************************    
     		//取消显示进度对话框
     		progressDialog.dismiss();
     	}
@@ -195,28 +204,37 @@ public class MainActivity extends ListActivity {
 			updateProcessList();
 //****************************************新加功能：内存显示********************************************
 	        upDateMemInfo();
-//****************************************新加功能：进程数显示******************************************** 
-//	        upDataProNum();
 		}
     }
     
     //结束全部进程按钮监听函数的编写
-    private class killAllButtonListener implements android.view.View.OnClickListener {
+    private class killSelectedButtonListener implements android.view.View.OnClickListener {
 		public void onClick(View v) {
 			int count = infoList.size();
+//****************************************新加功能：没选择删除就不更新******************************
+			boolean haveCheckedAtLestOne = false;
+//*************************************************************************************************
 			ProgramUtil pu = null;
 			//遍历所有进程，逐个关闭
 			for (int i = 0; i < count; i++) {
 				pu = infoList.get(i);
+//****************************************新加功能：内存显示********************************************
+				if(pu.getSelected()){
+				haveCheckedAtLestOne = true;
+//************************************************************************************************
 				//自建关闭指定进程函数closeOneProcess
 				closeOneProcess(pu.getProcessName());
+				}
 			}
+			if(haveCheckedAtLestOne == true){
 			//更新列表
 			updateProcessList();
 //****************************************新加功能：内存显示********************************************
 	        upDateMemInfo();
-//****************************************新加功能：进程数显示********************************************
-//	        upDataProNum();
+			}
+//**************************没选择删除就不更新的提示*****************************************************
+			else
+				Toast.makeText(MainActivity.this, "请先选择您要清理的进程", Toast.LENGTH_LONG).show();
 		}
     }
     
@@ -263,8 +281,7 @@ public class MainActivity extends ListActivity {
   				updateProcessList();
 //****************************************新加功能：内存显示********************************************
   		        upDateMemInfo();
-//****************************************新加功能：进程数显示******************************************** 
- // 		        upDataProNum();
+  		        
   				break;
   			default:
   				break;
@@ -276,7 +293,7 @@ public class MainActivity extends ListActivity {
     private void closeOneProcess(String processName) {
     	//阻止用户结束本程序
 		if (processName.equals(R.string.class)) {		
-			Toast.makeText(MainActivity.this, "Canot Terminate Myself!", Toast.LENGTH_LONG).show();
+			Toast.makeText(MainActivity.this, "不能关闭本程序自身!", Toast.LENGTH_LONG).show();
 			return;
 		}
 		//通过一个程序名返回该程序的一个ApplicationInfo对象
@@ -356,9 +373,19 @@ public class MainActivity extends ListActivity {
     	    }  
 
 //***************************************新加功能：进程数显示***************************************    
-   public void upDataProNum(){	
+	public void upDataProNum(){	
 	    int count1 = infoList.size();
 	    processNumber.setText(Integer.toString(count1));
    }
-   
 }
+//***************************************新加功能：选择删除*****************************************
+//	private OnCheckedChangeListener checkBox_listener = new OnCheckedChangeListener() {
+//		
+//		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//			// TODO Auto-generated method stub
+//			if(isChecked){
+//				Log.i("复选框","选中了["+buttonView.getText().toString()+"]");
+//			}
+//		}
+//	};
+//}

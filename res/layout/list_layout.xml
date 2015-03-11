@@ -24,7 +24,8 @@
             android:layout_height="wrap_content" 
             android:layout_width="wrap_content" 
             android:id="@+id/name_app" 
-            android:textSize="8pt" />
+            android:textSize="8pt" 
+            android:textColor="#000000"/>
         <!-- 显示程序包名 -->
         <TextView 
             android:text="未命名包" 
@@ -36,10 +37,21 @@
 	    <TextView
 	        android:text="未知内存" 
 	        android:id="@+id/cpu_app"
-	        android:textColor="#00AA00"
+	        android:textColor="#FF0000"
 	        android:layout_height="wrap_content" 
 	        android:layout_width="wrap_content" 
 	        android:textSize="5pt" />
     </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/myCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:checked="false"
+        android:focusable="false"
+        />
+    <!-- 若没有上面一句android:focusable="false"，则只能选择checkBox不能选择ListView的item了 -->
 
 </RelativeLayout>
