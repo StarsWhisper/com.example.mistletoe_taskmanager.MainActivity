@@ -67,9 +67,9 @@ public class MainActivity extends ListActivity {
 	private  TextView canUseMemory = null;
 //***************************************新加功能：进程数显示***************************************
 	private  TextView processNumber = null;
-//***************************************新加功能：选择删除****************************************
-//	private static Button chooseAllProcess = null;
-//	private static Button invertSelectionProcess = null;
+//***************************************新加功能：选择全部或反选****************************************
+	private static Button chooseAllProcess = null;
+	private static Button invertSelectionProcess = null;
 //*************************************************************************************************
 	
     @Override
@@ -81,9 +81,11 @@ public class MainActivity extends ListActivity {
         canUseMemory = (TextView)findViewById(R.id.showMemory); 
 //***************************************新加功能：进程数显示***************************************
         processNumber = (TextView)findViewById(R.id.showProcessNumber);
-//***************************************新加功能：选择删除***************************************        
-//        final CheckBox myCheckBox=(CheckBox)findViewById(R.id.myCheckBox);
-//        myCheckBox.setOnCheckedChangeListener(checkBox_listener);
+//***************************************新加功能：选择全部或反选***************************************        
+        chooseAllProcess = (Button)findViewById(R.id.myButton_chooseAll);
+        chooseAllProcess.setOnClickListener(new chooseAllButtonListener());
+        invertSelectionProcess = (Button)findViewById(R.id.myButton_invertSelection);
+        invertSelectionProcess.setOnClickListener(new invertSelectedButtonListener());
 //*************************************************************************************************
       
     //==============================以下包含函数实例化==================================================
@@ -91,7 +93,7 @@ public class MainActivity extends ListActivity {
         //自建刷新按钮监听函数RefreshButtonListener()
         refresh.setOnClickListener(new refreshButtonListener());
         killAll = (Button)findViewById(R.id.myButton_killAll);
-//*********团队更改*******自建结束“选中”进程按钮监听函数KillSelectedButtonListener()
+//********************更改*******自建结束“选中”进程按钮监听函数KillSelectedButtonListener()*********
         killAll.setOnClickListener(new killSelectedButtonListener());
         
         //获取包管理器，以便获取程序图标和名称
@@ -207,7 +209,7 @@ public class MainActivity extends ListActivity {
 		}
     }
     
-    //结束全部进程按钮监听函数的编写
+//**************更改：*************结束“选中”进程按钮监听函数的编写*********************************
     private class killSelectedButtonListener implements android.view.View.OnClickListener {
 		public void onClick(View v) {
 			int count = infoList.size();
@@ -377,15 +379,30 @@ public class MainActivity extends ListActivity {
 	    int count1 = infoList.size();
 	    processNumber.setText(Integer.toString(count1));
    }
-}
-//***************************************新加功能：选择删除*****************************************
-//	private OnCheckedChangeListener checkBox_listener = new OnCheckedChangeListener() {
-//		
-//		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//			// TODO Auto-generated method stub
-//			if(isChecked){
-//				Log.i("复选框","选中了["+buttonView.getText().toString()+"]");
-//			}
-//		}
-//	};
-//}
+
+//***************************************新加功能：选择全部或反选***************************************        
+	private class chooseAllButtonListener implements android.view.View.OnClickListener {
+		public void onClick(View v) {
+			int count = infoList.size();
+			ProgramUtil pu = null;
+			for (int i = 0; i < count; i++) {
+				pu = infoList.get(i);
+				pu.setSelected(true);
+				}
+			}
+		}
+	private class invertSelectedButtonListener implements android.view.View.OnClickListener {
+		public void onClick(View v) {
+			int count = infoList.size();
+			ProgramUtil pu = null;
+			for (int i = 0; i < count; i++) {
+				pu = infoList.get(i);
+				if(pu.getSelected()){
+				pu.setSelected(false);
+				}
+				else
+					pu.setSelected(true);
+			}
+		}
+	}
+}	

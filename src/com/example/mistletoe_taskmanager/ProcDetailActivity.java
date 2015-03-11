@@ -102,7 +102,7 @@ public class ProcDetailActivity extends Activity {
 			//获得程序的信息类
 			ApplicationInfo tempAppInfo = packageUtil.getApplicationInfo(processInfo.getProcessName());
 			activityManager.killBackgroundProcesses(tempAppInfo.packageName);
-			Toast.makeText(ProcDetailActivity.this, "进程已强制结束！", Toast.LENGTH_LONG).show();
+			Toast.makeText(ProcDetailActivity.this, "进程已强制结束，请刷新列表！", Toast.LENGTH_LONG).show();
 		}
 	}
 	
