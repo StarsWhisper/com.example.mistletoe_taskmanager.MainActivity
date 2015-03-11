@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:scrollbars="none" >
+    android:scrollbars="none"
+    android:background="@drawable/background_06" >
     <LinearLayout
         android:id="@+id/linearlayout_detail"
         android:layout_width="fill_parent"
@@ -15,7 +16,7 @@
 		android:paddingBottom="1dip">
         <RelativeLayout android:layout_width="match_parent" 
             android:layout_height="30dip"  
-            android:background="#555555"
+            
             android:id="@+id/relativeLayout_detail">
             <TextView android:textSize="7pt" 
                 android:layout_alignParentLeft="true" 
@@ -23,7 +24,8 @@
                 android:layout_width="wrap_content" 
                 android:layout_height="fill_parent"
                 android:gravity="center_vertical"
-                android:text="进程名称" />
+                android:text="进程名称"
+                android:textColor="#000000" />
             <Button
                 android:id="@+id/detail_killProcessButton"
                 android:layout_width="wrap_content"
@@ -34,8 +36,9 @@
                 android:paddingRight="10dip"
                 android:paddingTop="0dip"
                 android:text="强制结束"
-                android:textColor="#cc0033"
-                android:textSize="5pt" />
+                android:textSize="5pt" 
+                android:textColor="#FF0000"
+                />
         </RelativeLayout>
 		<!-- 进程名称具体显示 -->
         <TextView 
@@ -52,9 +55,10 @@
             android:layout_width="fill_parent" 
             android:layout_height="25dip"   
             android:gravity="center_vertical"
-            android:background="#555555"
+  
             android:paddingTop="3dip" 
-            android:paddingBottom="3dip" />
+            android:paddingBottom="3dip"
+            android:textColor="#000000" />
         <!-- 版权信息具体显示 -->
         <TextView 
             android:id="@+id/detail_copyright"
@@ -70,9 +74,10 @@
             android:layout_width="fill_parent" 
             android:layout_height="25dip"   
             android:gravity="center_vertical"
-            android:background="#555555"
+             
             android:paddingTop="3dip" 
-            android:paddingBottom="3dip" />
+            android:paddingBottom="3dip" 
+            android:textColor="#000000"/>
         <!-- 安装目录具体显示 -->
         <TextView 
             android:id="@+id/detail_installLocation"
@@ -88,9 +93,10 @@
             android:layout_width="fill_parent" 
             android:layout_height="25dip"   
             android:gravity="center_vertical"
-            android:background="#555555"
+             
             android:paddingTop="3dip" 
-            android:paddingBottom="3dip" />
+            android:paddingBottom="3dip"
+            android:textColor="#000000" />
         <!-- 数据目录具体显示 -->
         <TextView 
             android:id="@+id/detail_dataLocation"
@@ -106,9 +112,10 @@
             android:layout_width="fill_parent" 
             android:layout_height="25dip"   
             android:gravity="center_vertical"
-            android:background="#555555"
+             
             android:paddingTop="3dip" 
-            android:paddingBottom="3dip" />
+            android:paddingBottom="3dip"
+            android:textColor="#000000" />
         <!-- 文件大小具体显示 -->
         <TextView 
             android:id="@+id/detail_size"
@@ -124,9 +131,10 @@
             android:layout_width="fill_parent" 
             android:layout_height="25dip"   
             android:gravity="center_vertical"
-            android:background="#555555"
+             
             android:paddingTop="3dip" 
-            android:paddingBottom="3dip" />
+            android:paddingBottom="3dip" 
+            android:textColor="#000000"/>
         <!-- 程序拥有权限具体显示 -->
         <TextView 
             android:id="@+id/detail_permission"
@@ -142,9 +150,10 @@
             android:layout_width="fill_parent" 
             android:layout_height="25dip"   
             android:gravity="center_vertical"
-            android:background="#555555"
+             
             android:paddingTop="3dip" 
-            android:paddingBottom="3dip" />
+            android:paddingBottom="3dip"
+            android:textColor="#000000" />
         <!-- 服务信息具体显示 -->
         <TextView 
             android:id="@+id/detail_service"
@@ -160,9 +169,10 @@
             android:layout_width="fill_parent" 
             android:layout_height="25dip"   
             android:gravity="center_vertical"
-            android:background="#555555"
+             
             android:paddingTop="3dip" 
-            android:paddingBottom="3dip" />
+            android:paddingBottom="3dip" 
+            android:textColor="#000000"/>
         <!-- 活动信息具体显示 --> 
         <TextView 
             android:id="@+id/detail_activity"

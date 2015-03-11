@@ -235,6 +235,7 @@ public class MainActivity extends ListActivity {
 			updateProcessList();
 //****************************************新加功能：内存显示********************************************
 	        upDateMemInfo();
+	        Toast.makeText(MainActivity.this, "提示：无法终止某些系统进程", Toast.LENGTH_LONG).show();
 			}
 //**************************没选择删除就不更新的提示*****************************************************
 			else
@@ -285,7 +286,10 @@ public class MainActivity extends ListActivity {
   				updateProcessList();
 //****************************************新加功能：内存显示********************************************
   		        upDateMemInfo();
-  		        
+  		      if (processSelected.processName.equals("com.example.mistletoe_taskmanager")) {
+  				Toast.makeText(MainActivity.this, "无法结束本程序自身！", Toast.LENGTH_LONG).show();
+  			  }else
+  		        Toast.makeText(MainActivity.this, "提示：某些系统进程可能无法终止", Toast.LENGTH_LONG).show();
   				break;
   			default:
   				break;
