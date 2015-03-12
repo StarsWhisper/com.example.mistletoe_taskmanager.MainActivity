@@ -10,6 +10,7 @@
         android:layout_width="50dip" 
         android:layout_marginRight="10dip"
         android:layout_alignParentLeft="true"
+        android:layout_marginLeft="5dp"
     />
     <!-- 显示进程信息描述 -->
     <LinearLayout 
@@ -51,6 +52,7 @@
         android:layout_centerVertical="true"
         android:checked="false"
         android:focusable="false"
+        android:layout_marginRight="5dp"
         />
     <!-- 若没有上面一句android:focusable="false"，则只能选择checkBox不能选择ListView的item了 -->
 

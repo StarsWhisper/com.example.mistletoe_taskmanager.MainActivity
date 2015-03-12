@@ -24,6 +24,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.format.Formatter;  
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;  
 import android.widget.Button;
@@ -72,6 +73,8 @@ public class MainActivity extends ListActivity {
 	private static Button invertSelectionProcess = null;
 	private static checkBoxRefreshHandler checkBoxHandler = null;
 	private static CheckBoxRefreshAdapter CheckBoxRefreshAdapter = null;
+//***************************************新加功能：再按一次返回键退出****************************************	
+	private long exitTime = 0;
 //*************************************************************************************************
 	
     @Override
@@ -441,5 +444,19 @@ public class MainActivity extends ListActivity {
 		CheckBoxRefreshAdapter checkAdapter = new CheckBoxRefreshAdapter(infoList, this);
     	return checkAdapter;
 	}
-	
+//*********************************新加功能：再按一次返回键退出**************************************
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){   
+	        if((System.currentTimeMillis()-exitTime) > 2000){  
+	            Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();                                
+	            exitTime = System.currentTimeMillis();   
+	        } else {
+	            finish();
+	            System.exit(0);
+	        }
+	        return true;   
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
 }	
+
