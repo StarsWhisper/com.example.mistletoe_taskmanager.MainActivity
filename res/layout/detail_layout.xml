@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:scrollbars="none"
-    android:background="@drawable/background_14" >
+    android:background="@drawable/background_16" >
     <LinearLayout
         android:id="@+id/linearlayout_detail"
         android:layout_width="fill_parent"

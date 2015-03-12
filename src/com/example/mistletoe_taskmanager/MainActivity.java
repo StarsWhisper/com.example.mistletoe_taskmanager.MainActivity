@@ -254,7 +254,8 @@ public class MainActivity extends ListActivity {
       	//新建对话框
       	AlertButtonListener listener = new AlertButtonListener();
       	Dialog alertDialog = new AlertDialog.Builder(this)
-      		.setIcon(android.R.drawable.ic_dialog_info)
+ //**************************更改icon**************************************************************
+      		.setIcon(R.drawable.mistletoe_04)
       		.setTitle("请选择")
       		.setNegativeButton("强制结束", listener)
       		.setNeutralButton("查看详情", listener).create();
@@ -362,6 +363,9 @@ public class MainActivity extends ListActivity {
     	progressDialog.setProgressStyle(progressDialog.STYLE_SPINNER);
     	progressDialog.setTitle("提示");
     	progressDialog.setMessage("正在刷新...");
+//****************************************设置提示图示********************************************    	
+    	progressDialog.setIcon(R.drawable.mistletoe_03);
+    	
     	
     //开启新线程，执行更新操作（自建RefreshThread类）
     RefreshThread thread = new RefreshThread();
