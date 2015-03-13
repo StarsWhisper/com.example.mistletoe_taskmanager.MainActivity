@@ -10,7 +10,10 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+/*
+ * CheckBoxRefreshAdapter主要是为了在选择全选或者反选按钮时，及时更新ListView的显示状态，
+ * 而且不用同时刷新进程列表，节约系统资源
+ */
 public class CheckBoxRefreshAdapter extends BaseAdapter{
 	List<ProgramUtil> list = new ArrayList<ProgramUtil>();
 	// 类LayoutInflater用于将一个XML布局文件实例化为一个View对象

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/welcome_01"
+    android:background="@drawable/welcome_03"
     android:scaleType="centerInside"
      >
 </LinearLayout>

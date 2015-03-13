@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.View.OnClickListener;  
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;  
 import android.widget.Toast;
@@ -52,9 +53,8 @@ public class MainActivity extends ListActivity {
 	private static PackageUtil packageUtil = null;
 	 
 	//刷新和结束进程按钮
-	private static Button refresh = null;
-	private static Button killAll = null;
-	
+	private static ImageButton refresh = null;
+	private static ImageButton killAll = null;
 	//后台刷新列表和显示刷新提示（自建类RefreshHandler）
 	private static RefreshHandler handler = null;
 	
@@ -69,8 +69,8 @@ public class MainActivity extends ListActivity {
 //***************************************新加功能：进程数显示***************************************
 	private  TextView processNumber = null;
 //***************************************新加功能：选择全部或反选****************************************
-	private static Button chooseAllProcess = null;
-	private static Button invertSelectionProcess = null;
+	private static ImageButton chooseAllProcess = null;
+	private static ImageButton invertSelectionProcess = null;
 	private static checkBoxRefreshHandler checkBoxHandler = null;
 	private static CheckBoxRefreshAdapter CheckBoxRefreshAdapter = null;
 //***************************************新加功能：再按一次返回键退出****************************************	
@@ -87,17 +87,17 @@ public class MainActivity extends ListActivity {
 //***************************************新加功能：进程数显示***************************************
         processNumber = (TextView)findViewById(R.id.showProcessNumber);
 //***************************************新加功能：选择全部或反选***************************************        
-        chooseAllProcess = (Button)findViewById(R.id.myButton_chooseAll);
+        chooseAllProcess = (ImageButton)findViewById(R.id.myButton_chooseAll);
         chooseAllProcess.setOnClickListener(new chooseAllButtonListener());
-        invertSelectionProcess = (Button)findViewById(R.id.myButton_invertSelection);
+        invertSelectionProcess = (ImageButton)findViewById(R.id.myButton_invertSelection);
         invertSelectionProcess.setOnClickListener(new invertSelectedButtonListener());
 //*************************************************************************************************
       
     //==============================以下包含函数实例化==================================================
-        refresh = (Button)findViewById(R.id.myButton_refresh);
+        refresh = (ImageButton)findViewById(R.id.myButton_refresh);
         //自建刷新按钮监听函数RefreshButtonListener()
         refresh.setOnClickListener(new refreshButtonListener());
-        killAll = (Button)findViewById(R.id.myButton_killAll);
+        killAll = (ImageButton)findViewById(R.id.myButton_killAll);
 //********************更改*******自建结束“选中”进程按钮监听函数KillSelectedButtonListener()*********
         killAll.setOnClickListener(new killSelectedButtonListener());
         
@@ -225,7 +225,7 @@ public class MainActivity extends ListActivity {
 			//遍历所有进程，逐个关闭
 			for (int i = 0; i < count; i++) {
 				pu = infoList.get(i);
-//****************************************新加功能：内存显示********************************************
+//****************************************新加功能：没选择删除就不更新的提示********************************************
 				if(pu.getSelected()){
 				haveCheckedAtLestOne = true;
 //************************************************************************************************
