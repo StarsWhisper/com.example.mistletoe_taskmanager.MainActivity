@@ -88,7 +88,7 @@ public class ProcListAdapter extends BaseAdapter{
 		return convertView;
 	}
 }
-//用于存放每一行所有元素的类
+//用于存放每一行所有元素的类  用于记录，不然图片等也会错乱
 class ViewHolder {
 	TextView nameText;
 	TextView processName;

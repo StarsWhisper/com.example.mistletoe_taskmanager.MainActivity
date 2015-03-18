@@ -27,6 +27,14 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;  
+import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -81,6 +89,35 @@ public class MainActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+       
+//*********************学习：动画效果实现******************************************        
+        //AlphaAnimation 控制渐变透明的动画效果
+        //ScaleAnimation 控制尺寸伸缩的动画效果
+        //TranslateAnimation  控制画面平移的动画效果
+        //RotateAnimation  控制画面角度变化的动画效果
+        //LayoutAnimation  渲染ViewGroup中每个View显示时候的动画效果
+              AnimationSet set = new AnimationSet(false);
+              Animation animation = new AlphaAnimation(0,1);
+              animation.setDuration(200);
+              set.addAnimation(animation);
+              
+              animation = new TranslateAnimation(1, 13, 10, 50);
+              animation.setDuration(120);
+              set.addAnimation(animation);
+              
+              animation = new RotateAnimation(30,10);
+              animation.setDuration(120);
+              set.addAnimation(animation);
+              
+              animation = new ScaleAnimation(5,0,2,0);
+              animation.setDuration(120);
+              set.addAnimation(animation);
+              LayoutAnimationController controller = new LayoutAnimationController(set, 1);
+     
+              getListView().setLayoutAnimation(controller);           
+              getListView().setCacheColorHint(0);
+//********************************************************************************
+   
         
 //****************************************新加功能：内存显示********************************************
         canUseMemory = (TextView)findViewById(R.id.showMemory); 
@@ -110,7 +147,7 @@ public class MainActivity extends ListActivity {
         //获取正在运行的进程列表
         runningProcessList = new ArrayList<RunningAppProcessInfo>();
         infoList = new ArrayList<ProgramUtil>();
-        
+  
         //调用更新列表方法
         updateProcessList();
 //****************************************新加功能：内存显示********************************************

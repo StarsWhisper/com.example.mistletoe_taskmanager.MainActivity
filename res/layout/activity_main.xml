@@ -100,7 +100,7 @@
         android:layout_toLeftOf="@+id/myButton_chooseAll"
         android:background="@layout/imagepress_refresh"
         android:onClick="myClick_refresh"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="24dp"
         />
 
     <ImageButton
